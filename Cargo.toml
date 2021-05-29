@@ -1,6 +1,6 @@
 [package]
 name = "system_wide_key_state"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Aleksandr \"Flone\" Tretyakov (github.com/Flone-dnb)"]
 edition = "2018"
 description = "Query system-wide key state."
