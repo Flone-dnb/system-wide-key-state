@@ -5,6 +5,8 @@ authors = ["Aleksandr \"Flone\" Tretyakov (github.com/Flone-dnb)"]
 edition = "2018"
 description = "Query system-wide key state."
 license = "MIT"
+repository = "https://github.com/Flone-dnb/system-wide-key-state"
+documentation = "https://docs.rs/system_wide_key_state"
 
 [dependencies]
 winapi = {version = "0.3.9", features =["winuser"]}
