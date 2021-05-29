@@ -1,5 +1,6 @@
 use num_derive::ToPrimitive;
 use num_traits::cast::ToPrimitive;
+use std::ffi::CStr;
 
 #[cfg(target_os = "windows")]
 #[derive(ToPrimitive)]
@@ -194,5 +195,21 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
         } else {
             true
         }
+    }
+}
+
+/// Returns key name from keycode.
+///
+/// # Examples
+///
+/// ```
+/// assert_eq!("T", get_key_name(KeyCode::KT));
+/// ```
+pub fn get_key_name(key: KeyCode) -> String {
+    #[cfg(target_os = "linux")]
+    unsafe {
+        use x11::xlib::*;
+        let key_code = key.to_u64().unwrap();
+        return String::from(CStr::from_ptr(XKeysymToString(key_code)).to_str().unwrap());
     }
 }
