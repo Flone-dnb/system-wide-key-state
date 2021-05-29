@@ -1,6 +1,5 @@
 use num_derive::ToPrimitive;
 use num_traits::cast::ToPrimitive;
-use std::ffi::CStr;
 
 #[cfg(target_os = "windows")]
 #[derive(ToPrimitive)]
@@ -198,7 +197,6 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
     }
 }
 
-#[cfg(target_os = "linux")]
 /// Returns key name from keycode.
 ///
 /// # Examples
@@ -207,9 +205,74 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
 /// assert_eq!("T", get_key_name(KeyCode::KT));
 /// ```
 pub fn get_key_name(key: KeyCode) -> String {
-    unsafe {
-        use x11::xlib::*;
-        let key_code = key.to_u64().unwrap();
-        return String::from(CStr::from_ptr(XKeysymToString(key_code)).to_str().unwrap());
+    match key {
+        KeyCode::K0 => String::from("0"),
+        KeyCode::K1 => String::from("1"),
+        KeyCode::K2 => String::from("2"),
+        KeyCode::K3 => String::from("3"),
+        KeyCode::K4 => String::from("4"),
+        KeyCode::K5 => String::from("5"),
+        KeyCode::K6 => String::from("6"),
+        KeyCode::K7 => String::from("7"),
+        KeyCode::K8 => String::from("8"),
+        KeyCode::K9 => String::from("9"),
+        KeyCode::KA => String::from("A"),
+        KeyCode::KB => String::from("B"),
+        KeyCode::KC => String::from("C"),
+        KeyCode::KD => String::from("D"),
+        KeyCode::KE => String::from("E"),
+        KeyCode::KF => String::from("F"),
+        KeyCode::KG => String::from("G"),
+        KeyCode::KH => String::from("H"),
+        KeyCode::KI => String::from("I"),
+        KeyCode::KJ => String::from("J"),
+        KeyCode::KK => String::from("K"),
+        KeyCode::KL => String::from("L"),
+        KeyCode::KM => String::from("M"),
+        KeyCode::KN => String::from("N"),
+        KeyCode::KO => String::from("O"),
+        KeyCode::KP => String::from("P"),
+        KeyCode::KQ => String::from("Q"),
+        KeyCode::KR => String::from("R"),
+        KeyCode::KS => String::from("S"),
+        KeyCode::KT => String::from("T"),
+        KeyCode::KU => String::from("U"),
+        KeyCode::KV => String::from("V"),
+        KeyCode::KW => String::from("W"),
+        KeyCode::KX => String::from("X"),
+        KeyCode::KY => String::from("Y"),
+        KeyCode::KZ => String::from("Z"),
+        KeyCode::KF1 => String::from("F1"),
+        KeyCode::KF2 => String::from("F2"),
+        KeyCode::KF3 => String::from("F3"),
+        KeyCode::KF4 => String::from("F4"),
+        KeyCode::KF5 => String::from("F5"),
+        KeyCode::KF6 => String::from("F6"),
+        KeyCode::KF7 => String::from("F7"),
+        KeyCode::KF8 => String::from("F8"),
+        KeyCode::KF9 => String::from("F9"),
+        KeyCode::KF10 => String::from("F10"),
+        KeyCode::KF11 => String::from("F11"),
+        KeyCode::KF12 => String::from("F12"),
+        KeyCode::KBackspace => String::from("Back Space"),
+        KeyCode::KTab => String::from("Tab"),
+        KeyCode::KEnter => String::from("Enter"),
+        KeyCode::KShift => String::from("Shift"),
+        KeyCode::KCtrl => String::from("Ctrl"),
+        KeyCode::KAlt => String::from("Alt"),
+        KeyCode::KCapsLock => String::from("Caps Lock"),
+        KeyCode::KEsc => String::from("Esc"),
+        KeyCode::KSpace => String::from("Space"),
+        KeyCode::KPageUp => String::from("Page Up"),
+        KeyCode::KPageDown => String::from("Page Down"),
+        KeyCode::KEnd => String::from("End"),
+        KeyCode::KHome => String::from("Home"),
+        KeyCode::KArrowLeft => String::from("Arrow Left"),
+        KeyCode::KArrowUp => String::from("Arrow Up"),
+        KeyCode::KArrowRight => String::from("Arrow Right"),
+        KeyCode::KArrowDown => String::from("Arrow Down"),
+        KeyCode::KPrintScreen => String::from("Print Screen"),
+        KeyCode::KInsert => String::from("Insert"),
+        KeyCode::KDelete => String::from("Delete"),
     }
 }
