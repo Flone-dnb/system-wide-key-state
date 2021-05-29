@@ -1,8 +1,9 @@
+use num_derive::FromPrimitive;
 use num_derive::ToPrimitive;
 use num_traits::cast::ToPrimitive;
 
 #[cfg(target_os = "windows")]
-#[derive(Copy, Clone, ToPrimitive)]
+#[derive(Copy, Clone, ToPrimitive, FromPrimitive)]
 pub enum KeyCode {
     MLeftButton = 0x01,
     MRightButton = 0x02,
@@ -80,7 +81,7 @@ pub enum KeyCode {
 }
 
 #[cfg(target_os = "linux")]
-#[derive(Copy, Clone, ToPrimitive)]
+#[derive(Copy, Clone, ToPrimitive, FromPrimitive)]
 // see /usr/include/X11/keysymdef.h
 pub enum KeyCode {
     KBackspace = 0xff08,
