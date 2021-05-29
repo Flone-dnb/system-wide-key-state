@@ -80,15 +80,86 @@ pub enum KeyCode {
 }
 
 #[cfg(target_os = "linux")]
-pub enum KeyCode {}
+#[derive(ToPrimitive)]
+// see /usr/include/X11/keysymdef.h
+pub enum KeyCode {
+    KBackspace = 0xff08,
+    KTab = 0xff09,
+    KEnter = 0xff0d,
+    KShift = 0xffe1,
+    KCtrl = 0xffe3,
+    KAlt = 0xffe9,
+    KCapsLock = 0xffe5,
+    KEsc = 0xff1b,
+    KSpace = 0xff80,
+    KPageUp = 0xff9a,
+    KPageDown = 0xff9b,
+    KEnd = 0xff9c,
+    KHome = 0xff95,
+    KArrowLeft = 0x08fb,
+    KArrowUp = 0x08fc,
+    KArrowRight = 0x08fd,
+    KArrowDown = 0x08fe,
+    KPrintScreen = 0xfd1d,
+    KInsert = 0xff9e,
+    KDelete = 0xff9f,
+    K0 = 0x0030,
+    K1 = 0x0031,
+    K2 = 0x0032,
+    K3 = 0x0033,
+    K4 = 0x0034,
+    K5 = 0x0035,
+    K6 = 0x0036,
+    K7 = 0x0037,
+    K8 = 0x0038,
+    K9 = 0x0039,
+    KA = 0x0041,
+    KB = 0x0042,
+    KC = 0x0043,
+    KD = 0x0044,
+    KE = 0x0045,
+    KF = 0x0046,
+    KG = 0x0047,
+    KH = 0x0048,
+    KI = 0x0049,
+    KJ = 0x004A,
+    KK = 0x004B,
+    KL = 0x004C,
+    KM = 0x004D,
+    KN = 0x004E,
+    KO = 0x004F,
+    KP = 0x0050,
+    KQ = 0x0051,
+    KR = 0x0052,
+    KS = 0x0053,
+    KT = 0x0054,
+    KU = 0x0055,
+    KV = 0x0056,
+    KW = 0x0057,
+    KX = 0x0058,
+    KY = 0x0059,
+    KZ = 0x005A,
+    KF1 = 0xffbe,
+    KF2 = 0xffbf,
+    KF3 = 0xffc0,
+    KF4 = 0xffc1,
+    KF5 = 0xffc2,
+    KF6 = 0xffc3,
+    KF7 = 0xffc4,
+    KF8 = 0xffc5,
+    KF9 = 0xffc6,
+    KF10 = 0xffc7,
+    KF11 = 0xffc8,
+    KF12 = 0xffc9,
+}
 
 /// Queries system-wide key state.
 ///
 /// # Examples
 ///
 /// ```
-/// // asking if left mouse button is pressed right now
-/// let answer = is_key_pressed(KeyCode::MLeftButton);
+/// // asking if Escape key is pressed right now
+/// let answer = is_key_pressed(KeyCode::KEsc);
 ///
 /// // asking if keyboard key T is pressed right now
 /// let answer = is_key_pressed(KeyCode::KT);
@@ -106,5 +177,22 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
     }
 
     #[cfg(target_os = "linux")]
-    unsafe {}
+    unsafe {
+        use x11::xlib::*;
+
+        let key_code = key.to_u64().unwrap();
+
+        let display = XOpenDisplay(0 as *const i8);
+        let mut key_return = [0i8; 32];
+        XQueryKeymap(display, &mut key_return as *mut i8);
+        let kc = XKeysymToKeycode(display, key_code);
+        let is_pressed = key_return[(kc >> 3) as usize] & (1 << (kc & 7));
+        XCloseDisplay(display);
+
+        if is_pressed == 0 {
+            false
+        } else {
+            true
+        }
+    }
 }
