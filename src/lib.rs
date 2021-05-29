@@ -198,6 +198,7 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
     }
 }
 
+#[cfg(target_os = "linux")]
 /// Returns key name from keycode.
 ///
 /// # Examples
@@ -206,7 +207,6 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
 /// assert_eq!("T", get_key_name(KeyCode::KT));
 /// ```
 pub fn get_key_name(key: KeyCode) -> String {
-    #[cfg(target_os = "linux")]
     unsafe {
         use x11::xlib::*;
         let key_code = key.to_u64().unwrap();
