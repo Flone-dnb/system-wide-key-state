@@ -10,4 +10,7 @@ let answer = is_key_pressed(KeyCode::KEsc);
 
 // asking if keyboard key T is pressed right now
 let answer = is_key_pressed(KeyCode::KT);
+
+// get key name
+assert_eq!("T", get_key_name(KeyCode::KT));
 </pre>
