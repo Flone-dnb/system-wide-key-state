@@ -5,11 +5,6 @@ use num_traits::cast::ToPrimitive;
 #[cfg(target_os = "windows")]
 #[derive(Copy, Clone, ToPrimitive, FromPrimitive)]
 pub enum KeyCode {
-    MLeftButton = 0x01,
-    MRightButton = 0x02,
-    MMiddleButton = 0x04,
-    MX1Button = 0x05,
-    MX2Button = 0x06,
     KBackspace = 0x08,
     KTab = 0x09,
     KEnter = 0x0D,
