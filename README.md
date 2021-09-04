@@ -13,4 +13,8 @@ let answer = is_key_pressed(KeyCode::KT);
 
 // get key name
 assert_eq!("T", get_key_name(KeyCode::KT));
+
+// convert text to keycode
+assert_eq!(string_to_key("T"), KeyCode::KT);
+assert_eq!(string_to_key("some invalid text"), KeyCode::None);
 </pre>
