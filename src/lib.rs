@@ -5,6 +5,7 @@ use num_traits::cast::ToPrimitive;
 #[cfg(target_os = "windows")]
 #[derive(Copy, Clone, ToPrimitive, FromPrimitive, PartialEq)]
 pub enum KeyCode {
+    None,
     KBackspace = 0x08,
     KTab = 0x09,
     KEnter = 0x0D,
@@ -79,6 +80,7 @@ pub enum KeyCode {
 #[derive(Copy, Clone, ToPrimitive, FromPrimitive, PartialEq)]
 // see /usr/include/X11/keysymdef.h
 pub enum KeyCode {
+    None,
     KBackspace = 0xff08,
     KTab = 0xff09,
     KEnter = 0xff0d,
@@ -193,6 +195,88 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
     }
 }
 
+/// Returns the keycode from the key name.
+///
+/// # Examples
+///
+/// ```
+/// assert_eq!(string_to_key("T"), KeyCode::KT);
+/// assert_eq!(string_to_key("some invalid text"), KeyCode::None);
+/// ```
+pub fn string_to_key(key_name: &str) -> KeyCode {
+    match key_name {
+        "0" => KeyCode::K0,
+        "1" => KeyCode::K1,
+        "2" => KeyCode::K2,
+        "3" => KeyCode::K3,
+        "4" => KeyCode::K4,
+        "5" => KeyCode::K5,
+        "6" => KeyCode::K6,
+        "7" => KeyCode::K7,
+        "8" => KeyCode::K8,
+        "9" => KeyCode::K9,
+        "A" => KeyCode::KA,
+        "B" => KeyCode::KB,
+        "C" => KeyCode::KC,
+        "D" => KeyCode::KD,
+        "E" => KeyCode::KE,
+        "F" => KeyCode::KF,
+        "G" => KeyCode::KG,
+        "H" => KeyCode::KH,
+        "I" => KeyCode::KI,
+        "J" => KeyCode::KJ,
+        "K" => KeyCode::KK,
+        "L" => KeyCode::KL,
+        "M" => KeyCode::KM,
+        "N" => KeyCode::KN,
+        "O" => KeyCode::KO,
+        "P" => KeyCode::KP,
+        "Q" => KeyCode::KQ,
+        "R" => KeyCode::KR,
+        "S" => KeyCode::KS,
+        "T" => KeyCode::KT,
+        "U" => KeyCode::KU,
+        "V" => KeyCode::KV,
+        "W" => KeyCode::KW,
+        "X" => KeyCode::KX,
+        "Y" => KeyCode::KY,
+        "Z" => KeyCode::KZ,
+        "F1" => KeyCode::KF1,
+        "F2" => KeyCode::KF2,
+        "F3" => KeyCode::KF3,
+        "F4" => KeyCode::KF4,
+        "F5" => KeyCode::KF5,
+        "F6" => KeyCode::KF6,
+        "F7" => KeyCode::KF7,
+        "F8" => KeyCode::KF8,
+        "F9" => KeyCode::KF9,
+        "F10" => KeyCode::KF10,
+        "F11" => KeyCode::KF11,
+        "F12" => KeyCode::KF12,
+        "Back Space" => KeyCode::KBackspace,
+        "Tab" => KeyCode::KTab,
+        "Enter" => KeyCode::KEnter,
+        "Shift" => KeyCode::KShift,
+        "Ctrl" => KeyCode::KCtrl,
+        "Alt" => KeyCode::KAlt,
+        "Caps Lock" => KeyCode::KCapsLock,
+        "Esc" => KeyCode::KEsc,
+        "Space" => KeyCode::KSpace,
+        "Page Up" => KeyCode::KPageUp,
+        "Page Down" => KeyCode::KPageDown,
+        "End" => KeyCode::KEnd,
+        "Home" => KeyCode::KHome,
+        "Arrow Left" => KeyCode::KArrowLeft,
+        "Arrow Up" => KeyCode::KArrowUp,
+        "Arrow Right" => KeyCode::KArrowRight,
+        "Arrow Down" => KeyCode::KArrowDown,
+        "Print Screen" => KeyCode::KPrintScreen,
+        "Insert" => KeyCode::KInsert,
+        "Delete" => KeyCode::KDelete,
+        _ => KeyCode::None,
+    }
+}
+
 /// Returns key name from keycode.
 ///
 /// # Examples
@@ -202,6 +286,7 @@ pub fn is_key_pressed(key: KeyCode) -> bool {
 /// ```
 pub fn get_key_name(key: KeyCode) -> String {
     match key {
+        KeyCode::None => String::from(""),
         KeyCode::K0 => String::from("0"),
         KeyCode::K1 => String::from("1"),
         KeyCode::K2 => String::from("2"),
